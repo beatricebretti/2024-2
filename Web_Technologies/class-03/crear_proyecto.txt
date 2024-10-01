@@ -1,0 +1,48 @@
+seguir el tutorial
+
+hacer gem install rails
+poner rbenv shell 2.2.3
+
+rails new my_app --d postgresql --css bootstrap -j esbuild
+
+error driven development -> MVC 
+
+user->router->controller->user(db)->controller->view->controller->user
+
+router-> add get '/about', to: 'static_pages#about'
+root "static_pages#about"
+
+controllers-> static_pages_controller.rb -> hereda la clase. con arroba variable global
+    class StaticPagesController < ApplicationController 
+    end
+    def about 
+        @nombre = 'Juan'
+    end
+
+views/layouts, crear carpeta nueva dentro de views no de layouts:
+static_pages/about.html.erb -> embedded ruby
+<h1>Hola</h1>
+<h2><%=@nombre%></h2>
+
+
+en layout crear: con el _ porque asi ruby sabe que es un partial 
+_navbar.html.erb -> pegar aca el navbar 
+
+en application.html.erb
+<%=render partial: 'layouts/navbar'%>
+
+snake_case->archivos
+PascalCase -> nombre de las clases
+
+en controlador metodos se llaman opciones, acciones no reciben nada
+podemois buscar vesrsion de bootstrap con el buscador 
+pegar navbar en arriba del yield 
+varibale global de controlador disponible en vistas
+si la linea no va a generar contenido se pone sin el = 
+<% if @nombre == 'Juan' %>
+    <h2><%= @nombre %></h2>
+
+todo esto se puede ahorrar con comando:
+rails g controller StaticPages
+o
+rails g scaffeld StaticPages -> genera tablas, modelo, controlador, vista, ruta 

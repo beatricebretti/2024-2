@@ -1,0 +1,7 @@
+Notas ingresadas:
+Nota 1: 5.6
+Nota 2: 7.0
+Nota 3: 4.2
+Nota 4: 5.1
+Nota 5: 6.5
+Nota 6: 3.4
