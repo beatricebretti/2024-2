@@ -1,23 +1,30 @@
 CXX = g++
-CXXFLAGS = -Wall -Wextra -Wundef -Werror -Wuninitialized -Winit-self
+CXXFLAGS = -Wall -Wextra -Wundef -Werror -Wuninitialized -Winit-self -std=c++11
+
+MAIN = main.cpp
+PERSONAJE = Personaje.cpp
+PERSONAJE_HEADERS = Personaje.h
+
+PERSONAJES_DIR = personajes
+PERSONAJES = $(wildcard $(PERSONAJES_DIR)/*.h)
+
+OBJS = main.o Personaje.o
+
 TARGET = RPG
 
 all: $(TARGET)
 
-$(TARGET): main.o Personaje.o Medico.o Ingeniero.o
-    $(CXX) $(CXXFLAGS) -o $(TARGET) main.o Personaje.o Medico.o Ingeniero.o
+$(TARGET): $(OBJS)
+	$(CXX) $(CXXFLAGS) -o $(TARGET) $(OBJS)
 
-main.o: main.cpp
-    $(CXX) $(CXXFLAGS) -c main.cpp
+main.o: $(MAIN) $(PERSONAJE_HEADERS) $(PERSONAJES)
+	$(CXX) $(CXXFLAGS) -c $(MAIN)
 
-Personaje.o: Personaje.cpp Personaje.h
-    $(CXX) $(CXXFLAGS) -c Personaje.cpp
-
-Medico.o: Medico.cpp Medico.h
-    $(CXX) $(CXXFLAGS) -c Medico.cpp
-
-Ingeniero.o: Ingeniero.cpp Ingeniero.h
-    $(CXX) $(CXXFLAGS) -c Ingeniero.cpp
+Personaje.o: $(PERSONAJE) $(PERSONAJE_HEADERS) $(PERSONAJES)
+	$(CXX) $(CXXFLAGS) -c $(PERSONAJE)
 
 clean:
-    rm -f *.o $(TARGET)
+	rm -f $(OBJS) $(TARGET)
+
+run: $(TARGET)
+	./$(TARGET)
